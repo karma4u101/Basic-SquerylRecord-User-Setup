@@ -40,7 +40,7 @@ class RegisterLogin extends StatefulSnippet with Loggable {
     case "logout"          => logout
     case "greetings"       => greetings
   }
-  
+
   def registerOrLogin = {
     def processRegisterOrLogin() = {
       logger.debug("processRegister: email="+email+" confirm email="+conf_email+" pw="+pw+" referer="+referer+" confirm pw="+conf_pw)
@@ -50,17 +50,25 @@ class RegisterLogin extends StatefulSnippet with Loggable {
             case true => {
               Validator.isNewUser(email) match { //all is well check if new or known user
                 case true => { //yes it is a new user 
-                  //minimal registration of new user, don't forget to set active>0 or user wont be able to login
-                  val r = User.createRecord.userName(email).email(email).password(pw).active(1)
-                  MySchema.users.insert(r)
-                  //login the new user
-                  Validator.isValidDoLogin(email, pw) match {
-                    case true => {
-                      logger.debug("New user loggin ok currentUserId"+User.currentUserId)
+                  Validator.isValidPWConfirmation(pw, conf_pw) match {
+                    case true => { //oki doki prob. no typing errors in email address.
+                      //minimal registration of new user, don't forget to set active>0 or user wont be able to login
+                      val r = User.createRecord.userName(email).email(email).password(pw).active(1)
+                      MySchema.users.insert(r)
+                      //login the new user
+                      Validator.isValidDoLogin(email, pw) match {
+                        case true => {
+                          logger.debug("New user loggin ok currentUserId"+User.currentUserId)
+                        }
+                        case false => {
+                          logger.debug("New user Invalid login data for user "+email)
+                          S.error("pw", "New user Invalid login data!")
+                        }
+                      }
                     }
-                    case false => { 
-                      logger.debug("New user Invalid login data for user "+email)
-                      S.error("pw", "New user Invalid login data!")
+                    case false => {
+                      logger.debug("New user registration passwords dose not match")
+                      S.error("pw", "Passwords dose not match")
                     }
                   }
                 }
@@ -73,8 +81,8 @@ class RegisterLogin extends StatefulSnippet with Loggable {
                     case false => { S.error("pw", "Wrong credentials!") }
                   }
                 }
-              } 
-            }        
+              }
+            }
             case false => { S.error("pw", "Invalid credentials!") }
           }
         }
@@ -85,7 +93,7 @@ class RegisterLogin extends StatefulSnippet with Loggable {
     //logger.debug("referer.is="+referer.is)
     "name=email" #> SHtml.textElem(email) &
       /*"name=conf_email" #> SHtml.textElem(conf_email) &*/
-      /*"name=conf_pw"         #> SHtml.password("",(x) => conf_pw.set(x), "id" -> "input_conf_pw" ) &*/
+      "name=conf_pw" #> SHtml.password("", (x) => conf_pw.set(x), "id" -> "input_conf_pw") &
       "name=pw" #> (SHtml.password("", (x) => pw.set(x), "id" -> "input_pw") ++ SHtml.hidden(() => referer.set(r))) &
       "type=submit" #> SHtml.onSubmitUnit(processRegisterOrLogin)
   }
@@ -122,15 +130,16 @@ object Validator extends Loggable {
   }
   def isValidPw(pw: String): Boolean = {
     if (pw.trim.length > 4) { true } else { false }
-  }  
+  }
   def isValidEmail(email: String): Boolean = {
     import net.liftweb.mapper.{ MappedEmail }
     MappedEmail.validEmailAddr_?(email)
   }
-  /*
-  def isValidEmail(email:String,conf_email:String):Boolean = {
-    if(email.trim.equals(conf_email.trim) && email.trim.lenght>4) true else false
+
+  def isValidPWConfirmation(pw: String, conf_pw: String): Boolean = {
+    if (pw.trim.equals(conf_pw.trim)) true else false
   }
+  /*
   def isValidPassword(pw:String,conf_pw:String):Boolean = {
     if(pw.trim.equals(conf_pw.trim) && pw.trim.length>4) true else false
   }
