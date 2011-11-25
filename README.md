@@ -1,8 +1,16 @@
 User Authentication Authorization Using SquerylRecord
 =====================================================
 
-This Scala/Lift basic assembly example project demonstrates a basic squeryl-record ORM/DSL User (authentication/authorization) setup 
+This Scala/Lift basic assembly example project demonstrates a very basic squeryl-record ORM/DSL User (authentication/authorization) setup 
 with register/login/user-pages snippets. To make things easy to follow the examples has extensive logging. 
+
+This example is intended for those of you who are relatively new to lift and/or need some compact and concise running example 
+of a particular feature or concept in Lift. 
+
+Improvements and suggestions are welcome!  
+
+best regards 
+Peter Petersson     
 
 
 Quick Start
