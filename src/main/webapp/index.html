@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+<title>Home</title>
+</head>
+<body class="lift:content_id=main">
+	<div id="main" class="lift:surround?with=default;at=content">
+		<h2>Welcome to your project!</h2>
+		<p>
+			<span class="lift:helloWorld.howdy"> Welcome to your Lift app
+				at <span id="time">Time goes here</span> </span>
+		</p>
+		<!-- the content in this div will only be shown if user is logged out  -->
+		<div class='lift:test_cond.loggedout'>
+			<span>The registration/login file is a embedable piece of html
+				and can be embeded like shown below</span>
+			<span class='lift:embed?what=_embededRegLogin'>Embeded
+				registration/login template goes here</span>
+		</div>
+		<!-- the content in this div will only be shown if user is logged in  -->
+		<div class='lift:test_cond.loggedin'>
+			<span class='lift:RegisterLogin.greetings'>
+				Welcome <span id='user_greeter'> some greetings here</span>
+			</span>
+		</div>
+	</div>
+</body>
+</html>
+

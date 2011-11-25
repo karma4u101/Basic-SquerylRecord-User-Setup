@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+<title>Register/Login</title>
+</head>
+<!-- This is a embedable piece of html so we will surround it with a blank template -->
+<body class="lift:content_id=emb_reglogin">
+	<div id="emb_reglogin" class="lift:surround?with=blank;at=content">
+
+		<div class='lift:test_cond.loggedout'>
+
+			<form class='lift:RegisterLogin.registerOrLogin?form=post'>
+				<table cellspacing='1' class='register_ft' border='0'
+					cellpadding='1'>
+					<tr>
+						<td><span class='svartfet'>Email:</span><br /> <input
+							id='input_email' name='email' type='text' /></td>
+						<td>Password:<br /> <input id='input_pw' name='pw'
+							type='password' /></td>							
+					
+					</tr>
+					<tr>
+						<td colspan='2' align='right'><input id='login_button'
+							value='Register/Login' name='register' type='submit' /> <span
+							class="lift:Msg?id=email;errorClass=register_error"></span> <span
+							class="lift:Msg?id=pw;errorClass=register_error"></span></td>
+					</tr>
+				</table>
+			</form>
+
+		</div>
+
+		<div class='lift:test_cond.loggedin'>
+			<div class='lift:RegisterLogin.greetings'>
+				Welcome <span id="user_greeter"> some greetings here</span>
+			</div>
+			<form class='lift:RegisterLogin.logout?form=post'>
+				<input id='logout_button' value='Logout' name='logout' type='submit' />
+			</form>
+		</div>
+	</div>
+</body>
+</html>
+
