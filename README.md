@@ -26,10 +26,11 @@ There is also a sbt.bat for windows users.
 	
 	http://localhost:8080/
 	
-Changing Database back end
---------------------------
-For demonstration purpose and easy setup this example uses (by default) a in memory db but you can easily change database by 
-un-comment the corresponding db init line in Boot.scala. Database name, user and password is set in the default.props resources file.  	
+Changing Database backend
+-------------------------
+For demonstration purpose and easy setup this example uses, by default, a in memory database with name "testXYZDB" but you can  
+out of the box change database to MySql or Postgres by uncomment the corresponding database init line in Boot.scala. Database name, 
+user and password is set in the default.props resources file. With a five lines of code you can enable support for any Squeryl supported db. 	
 
 Scala IDE for Eclipse
 ---------------------
