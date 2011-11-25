@@ -18,13 +18,7 @@ import code.snippet.RegisterLogin
  */
 class Boot extends Loggable {
   def boot {
-    
-    Props.mode match {
-      case Props.RunModes.Development => logger.info("RunMode is DEVELOPMENT")
-      case Props.RunModes.Production => logger.info("RunMode is PRODUCTION") 
-      case _ => logger.info("RunMode is TEST, PILOT or STAGING")                                       
-    }
-    
+        
     // where to search snippet
     LiftRules.addToPackages("code")
     
@@ -33,10 +27,15 @@ class Boot extends Loggable {
     //MySchemaHelper.initSquerylRecordWithMySqlDB
     //MySchemaHelper.initSquerylRecordWithPostgresDB
     
-    /*OBS! do no use this in a production env*/
-    if(Props.RunModes.Development==true){
-      MySchemaHelper.dropAndCreateSchema
-    }
+    Props.mode match {
+      case Props.RunModes.Development => { 
+        logger.info("RunMode is DEVELOPMENT") 
+        /*OBS! do no use this in a production env*/
+        MySchemaHelper.dropAndCreateSchema
+        }
+      case Props.RunModes.Production => logger.info("RunMode is PRODUCTION") 
+      case _ => logger.info("RunMode is TEST, PILOT or STAGING")                                       
+    }    
     
     def loggedIn = {
       () => { 
