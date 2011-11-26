@@ -41,30 +41,10 @@ input:focus,textarea:focus {
 }
 
 /* The interesting bit */
-input
-:not
- 
-(
-:focus
- 
-),
-textarea
-:not
- 
-(
-:focus
- 
-)
-{
-opacity
-:
- 
-0
-.5
-;
-
-
+input:not (:focus ),textarea:not (:focus ) {
+	opacity: 0.5;
 }
+
 input:required,textarea:required {
 	background: url("images/asterisk_orange.png") no-repeat 280px 7px;
 }
@@ -83,31 +63,6 @@ input[type=submit] {
 	opacity: 1.0;
 }
 </style>
-<!--         <script language="JavaScript" type="text/javascript"> -->
-<!--             $(document).ready(function() { -->
-<!--                 $("#login-form").validate({ -->
-<!--                     rules: { -->
-<!--                         email: { -->
-<!--                             required: true, -->
-<!--                             email: true -->
-<!--                         }, -->
-<!--                         password: { -->
-<!--                             required: true -->
-<!--                         } -->
-<!--                     }, -->
-<!--                     messages: { -->
-<!--                         email: { -->
-<!--                             required: "O campo email é obrigatorio.", -->
-<!--                             email: "O campo email deve conter um email válido." -->
-<!--                         }, -->
-<!--                         password: { -->
-<!--                             required: "O campo senha é obrigatorio." -->
-<!--                         } -->
-<!--                     } -->
-<!--                 }); -->
-<!--             }); -->
-<!--          </script>  -->
-
 <title>Register/Login</title>
 </head>
 
@@ -139,7 +94,6 @@ input[type=submit] {
 					</tr>
 				</table>
 			</form>
-
 		</div>
 
 		<div class='lift:test_cond.loggedin'>
