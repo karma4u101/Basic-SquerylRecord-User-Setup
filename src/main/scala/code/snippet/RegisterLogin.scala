@@ -91,10 +91,10 @@ class RegisterLogin extends StatefulSnippet with Loggable {
     }
     val r = referer.is
     //logger.debug("referer.is="+referer.is)
-    "name=email" #> SHtml.textElem(email) &
+    "name=email" #> SHtml.email(email) &
       /*"name=conf_email" #> SHtml.textElem(conf_email) &*/
       "name=conf_pw" #> SHtml.password("", (x) => conf_pw.set(x), "id" -> "input_conf_pw") &
-      "name=pw" #> (SHtml.password("", (x) => pw.set(x), "id" -> "input_pw") ++ SHtml.hidden(() => referer.set(r))) &
+      "name=pw" #> (SHtml.password("", (x) => pw.set(x), "id" -> "input_pw" , "title" -> "Minimum 6 alphanumeric characters", "pattern" -> "\\w{6,}", "placeholder" -> "password") ++ SHtml.hidden(() => referer.set(r))) &
       "type=submit" #> SHtml.onSubmitUnit(processRegisterOrLogin)
   }
 

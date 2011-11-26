@@ -2,28 +2,137 @@
 <html>
 <head>
 <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+<style>
+/*
+html5 form validation insired by http://www.bradshawenterprises.com/blog/2010/fancy-forms-html5-css3-js/ 
+and http://www.whatwg.org/specs/web-apps/current-work/multipage/the-input-element.html#the-input-element
+and http://www.alistapart.com/articles/forward-thinking-form-validation/
+and http://www.alistapart.com/d/forward-thinking-form-validation/enhanced_2.html
+*/
+input,textarea {
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	background-color: #fff;
+	border: 1px solid #ccc;
+	font-size: 20px;
+	width: 300px;
+	min-height: 30px;
+	display: block;
+	margin-bottom: 16px;
+	margin-top: 8px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	-webkit-transition: all 0.5s ease-in-out;
+	-moz-transition: all 0.5s ease-in-out;
+	transition: all 0.5s ease-in-out;
+}
+
+textarea {
+	min-height: 200px;
+}
+
+input:focus,textarea:focus {
+	-webkit-box-shadow: 0 0 25px #ccc;
+	-moz-box-shadow: 0 0 25px #ccc;
+	box-shadow: 0 0 25px #ccc;
+	-webkit-transform: scale(1.05);
+	-moz-transform: scale(1.05);
+	transform: scale(1.05);
+}
+
+/* The interesting bit */
+input
+:not
+ 
+(
+:focus
+ 
+),
+textarea
+:not
+ 
+(
+:focus
+ 
+)
+{
+opacity
+:
+ 
+0
+.5
+;
+
+
+}
+input:required,textarea:required {
+	background: url("images/asterisk_orange.png") no-repeat 280px 7px;
+}
+
+input:valid,textarea:valid {
+	background: url("/images/tick.png") no-repeat 280px 5px;
+}
+
+input:focus:invalid,textarea:focus:invalid {
+	background: url("/images/cancel.png") no-repeat 280px 7px;
+}
+
+input[type=submit] {
+	padding: 10px;
+	background: none;
+	opacity: 1.0;
+}
+</style>
+<!--         <script language="JavaScript" type="text/javascript"> -->
+<!--             $(document).ready(function() { -->
+<!--                 $("#login-form").validate({ -->
+<!--                     rules: { -->
+<!--                         email: { -->
+<!--                             required: true, -->
+<!--                             email: true -->
+<!--                         }, -->
+<!--                         password: { -->
+<!--                             required: true -->
+<!--                         } -->
+<!--                     }, -->
+<!--                     messages: { -->
+<!--                         email: { -->
+<!--                             required: "O campo email é obrigatorio.", -->
+<!--                             email: "O campo email deve conter um email válido." -->
+<!--                         }, -->
+<!--                         password: { -->
+<!--                             required: "O campo senha é obrigatorio." -->
+<!--                         } -->
+<!--                     } -->
+<!--                 }); -->
+<!--             }); -->
+<!--          </script>  -->
+
 <title>Register/Login</title>
 </head>
+
 <!-- This is a embedable piece of html so we will surround it with a blank template -->
 <body class="lift:content_id=emb_reglogin">
 	<div id="emb_reglogin" class="lift:surround?with=blank;at=content">
 
 		<div class='lift:test_cond.loggedout'>
-
-			<form class='lift:RegisterLogin.registerOrLogin?form=post'>
-				<table cellspacing='1' class='register_ft' border='0'
-					cellpadding='1'>
+            <!-- we are doing some instant user interactive validation but have turned of validation on submit -->
+			<form id='login-form'
+				class='lift:RegisterLogin.registerOrLogin?form=post' novalidate>
+				<table class='register_ft'>
 					<tr>
-						<td><span class='svartfet'>Email:</span><br /> <input
-							id='input_email' name='email' type='text' /></td>
+						<td>Email:<br /> <input
+							id='input_email' name='email' type='email' title="Please enter a valid email" required
+							placeholder='email@example.com' /></td>
 						<td>Password:<br /> <input id='input_pw' name='pw'
-							type='password' /></td>		
-						<td>Confirm Password (on registration only):<br /> <input id='input_conf_pw' name='conf_pw'
-							type='password' /></td>														
-					
+							type='password' required
+							title="Minimum 6 alphanumeric characters" pattern="\w{6,}"
+							placeholder="password" /></td>
+						<td>Confirm Password (on registration only):<br /> <input
+							id='input_conf_pw' name='conf_pw' type='password' /></td>
 					</tr>
 					<tr>
-						<td colspan='3' align='right'><input id='login_button'
+						<td colspan='3'><input id='login_button'
 							value='Register/Login' name='register' type='submit' /> <span
 							class="lift:Msg?id=email;errorClass=register_error"></span> <span
 							class="lift:Msg?id=pw;errorClass=register_error"></span></td>
