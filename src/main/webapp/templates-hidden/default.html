@@ -63,14 +63,17 @@
 .sidebar ul li a:hover {
 	background-color: #eee;
 }
-
+/*this one is missing in the default bluprint style*/
+input[type="email"] {
+    margin: 0.5em 0;
+}
 /*Login form*/
 input,textarea {
 	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 	background-color: #fff;
 	border: 1px solid #ccc;
 	font-size: 20px;
-	width: 300px;
+	width: 200px;
 	min-height: 30px;
 	display: block;
 	margin-bottom: 16px;
@@ -114,7 +117,7 @@ input:focus:invalid,textarea:focus:invalid {
 }
 
 input[type=submit] {
-	padding: 10px;
+	padding: 2px;
 	background: none;
 	opacity: 1.0;
 }
