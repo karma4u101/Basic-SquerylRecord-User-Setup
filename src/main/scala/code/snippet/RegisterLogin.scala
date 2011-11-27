@@ -126,10 +126,10 @@ object Validator extends Loggable {
     !(User.userNameExists(email))
   }
   def isValidDoLogin(email: String, pw: String): Boolean = {
-    if (pw.trim.length > 4) { User.logIn(email, pw) } else { false }
+    if (pw.trim.length >= 6) { User.logIn(email, pw) } else { false }
   }
   def isValidPw(pw: String): Boolean = {
-    if (pw.trim.length > 4) { true } else { false }
+    if (pw.trim.length >= 6) { true } else { false }
   }
   def isValidEmail(email: String): Boolean = {
     import net.liftweb.mapper.{ MappedEmail }
