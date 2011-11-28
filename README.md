@@ -2,7 +2,8 @@ User Authentication Authorization Using SquerylRecord
 =====================================================
 
 This Scala/Lift basic assembly example project demonstrates a very basic squeryl-record ORM/DSL User (authentication/authorization) setup 
-with register/login/user-pages snippets. To make things easy to follow the examples has extensive logging. 
+with register/login/user-pages snippets. The example also demonstrates some form data validation by the snippet before being posted to the 
+database as well as a visual interactive html5 form field validation. To make things easy to follow the examples has extensive logging. 
 
 This example is intended for those of you who are relatively new to lift and/or need some compact and concise running example 
 of a particular feature or concept in Lift. 
@@ -38,7 +39,7 @@ Changing Database backend
 -------------------------
 For demonstration purpose and easy setup this example uses, by default, a in memory database with name "testXYZDB" but you can  
 out of the box change database to MySql or Postgres by uncomment the corresponding database init line in Boot.scala. Database name, 
-user and password is set in the default.props resources file. With a five lines of code you can enable support for any Squeryl supported db. 	
+user and password is set in the default.props resources file. With a few lines of code you can enable support for any Squeryl supported db. 	
 
 Scala IDE for Eclipse
 ---------------------
