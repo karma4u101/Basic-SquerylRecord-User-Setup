@@ -5,8 +5,8 @@ This Scala/Lift basic assembly example project demonstrates a very basic squeryl
 with register/login/user-pages snippets. The example also demonstrates some form data validation by the snippet before being posted to the 
 database as well as a visual interactive html5 form field validation. To make things easy to follow the examples has extensive logging. 
 
-This example is intended for those of you who are relatively new to lift and/or need some compact and concise running example 
-of a particular feature or concept in Lift. 
+This example is intended for those of you who need some compact and concise running and mostly ;) simple to follow example of a particular feature or concept in Lift.
+
 
 Improvements and suggestions are welcome!  
 
