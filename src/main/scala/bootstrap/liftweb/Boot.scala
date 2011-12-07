@@ -36,7 +36,9 @@ class Boot extends Loggable {
         }
         // pass paths that start with 'console' to be processed by the H2Console servlet
         if (MySchemaHelper.isUsingH2Driver) {
-          /* make db console browser-accessible in dev mode at /console */
+          /* make db console browser-accessible in dev mode at /console 
+           * see http://www.h2database.com/html/tutorial.html#tutorial_starting_h2_console 
+           * Embedded Mode JDBC URL: jdbc:h2:mem:test User Name:test Password:test */
           logger.info("Set up H2 db console at /console ")
           LiftRules.liftRequest.append({
             case r if (r.path.partPath match { case "console" :: _ => true case _ => false }) => false

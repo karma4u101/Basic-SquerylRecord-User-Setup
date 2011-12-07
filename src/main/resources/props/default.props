@@ -4,7 +4,7 @@ db.schemify=true
 
 ##h2 db setup
 h2.db.driver=org.h2.Driver
-h2.db.url=jdbc:h2:mem:testXYZDB;DB_CLOSE_DELAY=-1;LOCK_TIMEOUT=3000
+h2.db.url=jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;LOCK_TIMEOUT=3000
 h2.db.user=test
 h2.db.pass=test
 
