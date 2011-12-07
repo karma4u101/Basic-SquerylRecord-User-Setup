@@ -6,13 +6,16 @@ import org.squeryl.Schema
 import org.squeryl.Session
 import squerylrecord.SquerylRecord
 import squerylrecord.RecordTypeMode._
-import java.sql.DriverManager
+import java.sql.{DriverManager,Connection}
 import org.squeryl.internals.DatabaseAdapter;
 import org.squeryl.adapters.H2Adapter
 import org.squeryl.adapters.MySQLAdapter
 import org.squeryl.adapters.PostgreSqlAdapter
 import net.liftweb.util.{ Props }
 import net.liftweb.db.StandardDBVendor
+// db connection pool provider
+import com.jolbox.bonecp.BoneCP
+import com.jolbox.bonecp.BoneCPConfig
 
 object MySchema extends Schema {
   val users = table[User]
@@ -32,11 +35,11 @@ object MySchemaHelper extends Loggable {
   def initSquerylRecordWithInMemoryDB {
     initSquerylRecord(new MyH2DBSettings)
   }
-  
+
   def initSquerylRecordWithMySqlDB {
     initSquerylRecord(new MyMySqlDBSettings)
   }
-  
+
   def initSquerylRecordWithPostgresDB {
     initSquerylRecord(new MyPostgresSettings)
   }
@@ -61,11 +64,16 @@ object MySchemaHelper extends Loggable {
     logger.debug("initSquerylRecord with DBSettings: driver="+db.dbDriver+" url="+db.dbUrl+" user="+db.dbUser+" pw="+db.dbPass)
     SquerylRecord.initWithSquerylSession {
       Class.forName(db.dbDriver)
-      val session = Session.create(DriverManager.getConnection(db.dbUrl, db.dbUser, db.dbPass), db.dbAdapter)
+      val session = Session.create(
+        //init without connection pool
+        //DriverManager.getConnection(db.dbUrl, db.dbUser, db.dbPass),
+        //init with connection pool
+        PoolProvider.getPoolConnection(db),
+        db.dbAdapter)
       session.setLogger(statement => Logger("SqlLog:").debug(statement))
       session
     }
-  }  
+  }
   
   trait DBSettings {
     val dbAdapter: DatabaseAdapter;
@@ -103,5 +111,42 @@ object MySchemaHelper extends Loggable {
     logger.debug("MyPostgresSettings: seting adapter=PostgreSqlAdapter driver="+dbDriver+" url="+dbUrl+" user="+dbUser+" pw="+dbPass)
   }
 
+  /* database connection pooling provider - we are using BoneCP */
+  object PoolProvider extends Loggable {
+
+    var pool: Box[BoneCP] = Empty
+    
+    private def doConfig(db: DBSettings) = {
+      try {
+        // load the DB driver class
+        Class.forName(db.dbDriver)
+        // create a new configuration object	
+        val config = new BoneCPConfig
+        // set the JDBC url
+        config.setJdbcUrl(db.dbUrl)
+        // set the username
+        config.setUsername(db.dbUser)
+        // set the password
+        config.setPassword(db.dbPass)
+        // setup the connection pool
+        pool = Full(new BoneCP(config))
+        logger.info("BoneCP connection pool is now initialized.")
+      } catch {
+        case e: Exception => {
+          logger.error("BoneCP - FAILED to initialize connection pool.")
+          e.printStackTrace
+        }
+      }
+    }
+
+    def getPoolConnection(db: DBSettings) : Connection = {
+            doConfig(db)
+    		pool.openTheBox.getConnection
+    }  
+
+  }
+
 }
+
+
 
