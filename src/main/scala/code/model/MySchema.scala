@@ -31,8 +31,10 @@ object MySchema extends Schema {
  */
 object MySchemaHelper extends Loggable {
 
+  private var usingH2Driver=false;
   /*Public init convenience methods */
   def initSquerylRecordWithInMemoryDB {
+    usingH2Driver=true;
     initSquerylRecord(new MyH2DBSettings)
   }
 
@@ -59,6 +61,7 @@ object MySchemaHelper extends Loggable {
     }
   }
 
+  def isUsingH2Driver:Boolean = usingH2Driver
   /*The actual init method */
   private def initSquerylRecord(db: DBSettings) {
     logger.debug("initSquerylRecord with DBSettings: driver="+db.dbDriver+" url="+db.dbUrl+" user="+db.dbUser+" pw="+db.dbPass)
