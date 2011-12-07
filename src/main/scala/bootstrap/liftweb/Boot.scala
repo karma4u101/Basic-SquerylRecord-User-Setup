@@ -31,16 +31,17 @@ class Boot extends Loggable {
     Props.mode match {
       case Props.RunModes.Development => {
         logger.info("RunMode is DEVELOPMENT")
-        MySchemaHelper.dropAndCreateSchema
+        if(Props.getBool("db.schemify", false)){
+           MySchemaHelper.dropAndCreateSchema
+        }
         // pass paths that start with 'console' to be processed by the H2Console servlet
         if (MySchemaHelper.isUsingH2Driver) {
-          /* make h2 db console browser-accessible in dev mode at /console */
+          /* make db console browser-accessible in dev mode at /console */
           logger.info("Set up H2 db console at /console ")
           LiftRules.liftRequest.append({
             case r if (r.path.partPath match { case "console" :: _ => true case _ => false }) => false
           })
         }
-
       }
       case Props.RunModes.Production => logger.info("RunMode is PRODUCTION")
       case _                         => logger.info("RunMode is TEST, PILOT or STAGING")
