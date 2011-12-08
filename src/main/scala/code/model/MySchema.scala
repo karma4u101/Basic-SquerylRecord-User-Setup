@@ -89,7 +89,7 @@ object MySchemaHelper extends Loggable {
   class MyH2DBSettings extends DBSettings with Loggable {
     override val dbAdapter = new H2Adapter;
     override val dbDriver = Props.get("h2.db.driver").openOr("org.h2.Driver")
-    //"jdbc:h2:mem:testSqRecDB;DB_CLOSE_DELAY=-1;LOCK_TIMEOUT=3000"
+    //"jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;LOCK_TIMEOUT=3000"
     override val dbUrl = Props.get("h2.db.url").openOr("jdbc:h2:database/testXYZDB;FILE_LOCK=NO") //drop to h2 on harddrive
     override val dbUser = Props.get("h2.db.user").openOr("test")
     override val dbPass = Props.get("h2.db.pass").openOr("test")
@@ -117,14 +117,16 @@ object MySchemaHelper extends Loggable {
   /* database connection pooling provider - we are using BoneCP */
   object PoolProvider extends Loggable {
 
-    var pool: Box[BoneCP] = Empty
+    def getPoolConnection(db: DBSettings) : Connection = {
+    		initPool(db).getConnection
+    }      
     
-    private def doConfig(db: DBSettings) = {
+    private def initPool(db: DBSettings):BoneCP = {
+      // create a new configuration object	
+      val config = new BoneCPConfig
       try {
         // load the DB driver class
         Class.forName(db.dbDriver)
-        // create a new configuration object	
-        val config = new BoneCPConfig
         // set the JDBC url
         config.setJdbcUrl(db.dbUrl)
         // set the username
@@ -132,20 +134,16 @@ object MySchemaHelper extends Loggable {
         // set the password
         config.setPassword(db.dbPass)
         // setup the connection pool
-        pool = Full(new BoneCP(config))
+        //pool = Full(new BoneCP(config))
         logger.info("BoneCP connection pool is now initialized.")
+        new BoneCP(config)
       } catch {
         case e: Exception => {
           logger.error("BoneCP - FAILED to initialize connection pool.")
-          e.printStackTrace
-        }
+          throw new java.lang.Exception("BoneCP - FAILED to initialize connection pool."+e.printStackTrace)
+        } 
       }
     }
-
-    def getPoolConnection(db: DBSettings) : Connection = {
-            doConfig(db)
-    		pool.openTheBox.getConnection
-    }  
 
   }
 

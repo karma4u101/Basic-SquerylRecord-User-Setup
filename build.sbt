@@ -29,8 +29,8 @@ libraryDependencies ++= {
 
 // Customize any further dependencies as desired
 libraryDependencies ++= Seq(
-  "org.eclipse.jetty" % "jetty-webapp" % "8.0.3.v20111011" % "container",
-  //"org.mortbay.jetty" % "jetty" % "6.1.22" % "container", // For Jetty 7
+  "org.eclipse.jetty" % "jetty-webapp" % "8.0.3.v20111011" % "test, container",
+  //"org.mortbay.jetty" % "jetty" % "6.1.22" % "test, container", // For Jetty 7
   "javax.servlet" % "servlet-api" % "2.5" % "provided->default",
   "org.mindrot" % "jbcrypt" % "0.3m" % "compile->default",
   "com.h2database" % "h2" % "1.2.138", // In-process database, useful for development systems
