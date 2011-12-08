@@ -117,10 +117,15 @@ object MySchemaHelper extends Loggable {
   /* database connection pooling provider - we are using BoneCP */
   object PoolProvider extends Loggable {
 
+    
     def getPoolConnection(db: DBSettings) : Connection = {
-    		initPool(db).getConnection
+      if(pool==null){
+        pool=initPool(db)
+      }
+      pool.getConnection
     }      
     
+    private var pool:BoneCP=null
     private def initPool(db: DBSettings):BoneCP = {
       // create a new configuration object	
       val config = new BoneCPConfig
