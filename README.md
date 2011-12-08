@@ -1,7 +1,7 @@
 User Authentication Authorization Using SquerylRecord
 =====================================================
 
-This Scala/Lift basic assembly example project demonstrates a very basic squeryl-record ORM/DSL User (authentication/authorization) setup 
+This [(unofficial*)](#unofficial) Scala/Lift basic assembly example project demonstrates a very basic squeryl-record ORM/DSL User (authentication/authorization) setup 
 with register/login/user-pages snippets. The example also demonstrates some form data validation by the snippet before being posted to the 
 database as well as a visual interactive html5 form field validation. To make things easy to follow the examples has extensive logging. 
 
@@ -38,8 +38,8 @@ There is also a sbt.bat for windows users.
 	
 	http://localhost:8080/
 	
-Changing Database backend
--------------------------
+### Changing Database backend
+
 For demonstration purpose and easy setup this example uses, by default, a in memory database with name "test".
 The in memory database is embedded and accessible via a servlet from /console but you can out of the box change database 
 to MySql or Postgres by un-comment the corresponding database init line in Boot.scala. Database name, user and password 
@@ -59,4 +59,9 @@ Sbteclipse provides SBT command to create Eclipse project files
 	File ==> Import...
 	Select General ==> Existing Project into Workspace 
 	Use "Brows" to look up the project root ....
+
+User powered basic example<a id="unofficial"/>
+==========================
+This is a unofficial Lift user powered basic assembly example which means it is a work done by a developer who uses Lift 
+for development ;) and like to share it with others.
 
