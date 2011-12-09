@@ -1,11 +1,11 @@
 User Authentication Authorization Using SquerylRecord
 =====================================================
 
-This _unofficial*_ Scala/Lift basic assembly example project demonstrates a very basic squeryl-record ORM/DSL User (authentication/authorization) setup 
+This Scala/Lift basic assembly example project demonstrates a very basic squeryl-record ORM/DSL User (authentication/authorization) setup 
 with register/login/user-pages snippets. The example also demonstrates some form data validation by the snippet before being posted to the 
 database as well as a visual interactive html5 form field validation. To make things easy to follow the examples has extensive logging. 
 
-This example is intended for those of you who need some compact and concise running and mostly ;) simple to follow example of a particular 
+This _unofficial*_ example is intended for those of you who need some compact and concise running and mostly ;) simple to follow example of a particular 
 feature or concept in Lift.
 
 After many years of Java EE development I started look at Scala/Lift in May 2011 so there may be some none "best practice" stuff in there 
@@ -63,6 +63,6 @@ Sbteclipse provides SBT command to create Eclipse project files
 
 User powered basic example 
 ==========================
-**(*)** This is a _unofficial_ Lift user powered basic assembly example which means it is a work done by a developer who uses Lift 
-for development ;) and like to share it with others.
+**(*)** This is a _unofficial_ Lift user powered basic assembly example which means it is a work based on the 
+sound foundation of Lift and done by a developer who uses Lift for development ;), sharing it with others.
 
