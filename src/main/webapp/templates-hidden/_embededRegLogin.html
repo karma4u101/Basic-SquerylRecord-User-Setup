@@ -70,10 +70,10 @@ input[type=submit] {
 <body class="lift:content_id=emb_reglogin">
 	<div id="emb_reglogin" >
 
-		<div class='lift:test_cond.loggedout'>
+		<div data-lift='test_cond.loggedout'>
             <!-- we are doing some instant user interactive validation but have turned of validation on submit -->
 			<form id='login-form'
-				class='lift:RegisterLogin.registerOrLogin?form=post' novalidate>
+				data-lift='RegisterLogin.registerOrLogin?form=post' novalidate>
 				<table class='register_ft'>
 					<tr>
 						<td>Email:<br /> <input
@@ -89,18 +89,18 @@ input[type=submit] {
 					<tr>
 						<td colspan='3'><input id='login_button'
 							value='Register/Login' name='register' type='submit' /> <span
-							class="lift:Msg?id=email;errorClass=register_error"></span> <span
-							class="lift:Msg?id=pw;errorClass=register_error"></span></td>
+							data-lift="Msg?id=email;errorClass=register_error"></span> <span
+							data-lift="Msg?id=pw;errorClass=register_error"></span></td>
 					</tr>
 				</table>
 			</form>
 		</div>
 
-		<div class='lift:test_cond.loggedin'>
-			<div class='lift:RegisterLogin.greetings'>
+		<div data-lift='test_cond.loggedin'>
+			<div data-lift='RegisterLogin.greetings'>
 				Welcome <span id="user_greeter"> some greetings here</span>
 			</div>
-			<form class='lift:RegisterLogin.logout?form=post'>
+			<form data-lift='RegisterLogin.logout?form=post'>
 				<input id='logout_button' value='Logout' name='logout' type='submit' />
 			</form>
 		</div>
