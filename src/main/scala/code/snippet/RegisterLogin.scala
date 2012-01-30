@@ -59,6 +59,8 @@ class RegisterLogin extends StatefulSnippet with Loggable {
                       Validator.isValidDoLogin(email, pw) match {
                         case true => {
                           logger.debug("New user loggin ok currentUserId"+User.currentUserId)
+                          //if you want rederect back to calling page
+                          //S.redirectTo(referer)                          
                         }
                         case false => {
                           logger.debug("New user Invalid login data for user "+email)
@@ -77,6 +79,8 @@ class RegisterLogin extends StatefulSnippet with Loggable {
                   Validator.isValidDoLogin(email, pw) match {
                     case true => {
                       logger.debug("user loggin ok currentUserId"+User.currentUserId)
+                      //if you want rederect back to calling page
+                      //S.redirectTo(referer)
                     }
                     case false => { S.error("pw", "Wrong credentials!") }
                   }

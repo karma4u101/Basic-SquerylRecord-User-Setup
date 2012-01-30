@@ -3,7 +3,7 @@ organization := "Lift"
 
 name := "Basic SquerylRecord User Setup"
 
-version := "0.1-SNAPSHOT"
+version := "0.2-SNAPSHOT"
 
 scalaVersion := "2.9.1"
 
@@ -17,7 +17,7 @@ logLevel := Level.Info
 resolvers += "Java.net Maven2 Repository" at "http://download.java.net/maven/2/"
 
 libraryDependencies ++= {
-  val liftVersion = "2.4-RC1" // Put the current/latest lift version here
+  val liftVersion = "2.4" // Put the current/latest lift version here
   Seq(
     "net.liftweb" %% "lift-webkit" % liftVersion % "compile->default" withSources(),
     "net.liftweb" %% "lift-squeryl-record" % liftVersion % "compile->default",
