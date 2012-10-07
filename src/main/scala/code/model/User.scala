@@ -21,7 +21,7 @@ class User private() extends Record[User] with KeyedRecord[Long]
 	
 	val email = new EmailField(this,50)
 	val userName = new StringField(this,50)
-	val password = new PasswordField(this) with MyPasswordTypedField[User]
+	val password = new PasswordField(this) 
 	val firstName = new StringField(this,50)
 	val lastName = new StringField(this,50)
 	val superUser = new BooleanField(this)
@@ -208,37 +208,5 @@ object PasswordField
 	
 	def hashpw(in: String): Box[String] =  tryo(BCrypt.hashpw(in, BCrypt.gensalt(logRounds)))  
 }
-trait MyPasswordTypedField[OwnerType <: Record[OwnerType]] extends Field[String, OwnerType] with PasswordTypedField
-{
-	
-	def mySalt = 
-	{
-		val myValue = valueBox.map(v => v.toString) openOr ""
-		if(myValue.isEmpty || myValue.length <= 28)
-			salt.get
-		else
-			myValue.substring(28)
-	}	
 
-	/*
- 	* jBCrypt throws "String index out of range" exception
-  	* if password is an empty String
-  	*/	
-	override def match_?(toTest: String): Boolean = 
-	  valueBox.filter(_.length > 0)
-	    .flatMap(p => tryo(BCrypt.checkpw(toTest, p)))
-	    .openOr(false) 
-	  
 
-  override def set_!(in: Box[String]): Box[String] = {
-    // to have private validatedValue set
-		super.set_!(in)
-    in
-  }
-  
-  override def apply(in: Box[MyType]): OwnerType = 
-  {
-		val hashed = in.map(s => PasswordField.hashpw(s) openOr s)
-		super.apply(hashed)
-  }
-}
