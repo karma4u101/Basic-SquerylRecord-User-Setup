@@ -11,10 +11,10 @@ feature or concept in Lift.
 After many years of Java EE development I started look at Scala/Lift in May 2011 so there may be some none "best practice" stuff in there 
 and if you find something you think could be done in a more Scala/Lift fashion please let me know.
 
-Improvements and suggestions are welcome!  
+Improvements and suggestions are welcome! 
 
 best regards 
-Peter Petersson     
+Peter Petersson
 
 
 Quick Start
