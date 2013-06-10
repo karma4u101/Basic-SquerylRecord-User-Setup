@@ -38,7 +38,7 @@ class User private() extends Record[User] with KeyedRecord[Long]
 	
 	def fullName: String = lastName + " " + firstName
 	
-	private def authorizationHashInput = email.is + userName.is + created.is + updated.is
+	private def authorizationHashInput = email.get + userName.get + created.get + updated.get
 	def makeAuthorizationHash: String = makeAuthorizationHash(randomString(16))
 	def makeAuthorizationHash(salt: String) = hash("{"+authorizationHashInput+"} salt={"+salt+"}")+salt
 	def validateAuthorizationHash(hash: String): Boolean =
@@ -58,11 +58,11 @@ object User extends User with MetaRecord[User]
 {
 	private object curUserId extends SessionVar[Box[Long]](Empty)
 	
-	def currentUserId: Box[Long] = curUserId.is
+	def currentUserId: Box[Long] = curUserId.get
 	
 	private object curUser extends RequestVar[Box[User]](currentUserId.flatMap(get)) with CleanRequestVarOnSessionTransition
 
-	def currentUser: Box[User] = curUser.is	
+	def currentUser: Box[User] = curUser.get	
 	
 	def logInUser(user: User, doAfterLogin: () => Nothing): Nothing =
 	{
@@ -91,7 +91,7 @@ object User extends User with MetaRecord[User]
 	{
 		getByUserName(username).map(user => 
 		{
-			if(user.password.match_?(password) && user.active.is > 0)
+			if(user.password.match_?(password) && user.active.get > 0)
 			{
 				logInUser(user)
 				true
@@ -121,7 +121,7 @@ object User extends User with MetaRecord[User]
 	
 	def notLoggedIn : Boolean = !isLoggedIn
 	
-	def isSuperUser : Boolean = currentUser.map(_.superUser.is) openOr false
+	def isSuperUser : Boolean = currentUser.map(_.superUser.get) openOr false
 	
 	var adminLoginPageURL = "/admin/login"
 		
