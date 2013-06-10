@@ -108,8 +108,8 @@ class RegisterLogin extends StatefulSnippet with Loggable {
         logger.debug("trying to greet with user fullname")
         Text(User.currentUserFullName)
       } else {
-        logger.debug("trying to greet with userName (should be same as email) "+User.currentUser.openTheBox.userName.is)
-        Text(User.currentUser.openTheBox.userName.is)
+        logger.debug("trying to greet with userName (should be same as email) "+User.currentUser.openTheBox.userName.get)
+        Text(User.currentUser.openTheBox.userName.get)
       }
       ret
     }
