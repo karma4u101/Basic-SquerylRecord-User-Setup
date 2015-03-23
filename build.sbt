@@ -19,7 +19,7 @@ EclipseKeys.withSource := true
 resolvers += "Java.net Maven2 Repository" at "http://download.java.net/maven/2/"
 
 libraryDependencies ++= {
-  val liftVersion = "2.5" // Put the current/latest lift version here
+  val liftVersion = "2.5.2" // Put the current/latest lift version here
   Seq(
     "net.liftweb" %% "lift-webkit"         % liftVersion % "compile->default" withSources(),
     "net.liftweb" %% "lift-squeryl-record" % liftVersion % "compile->default",
